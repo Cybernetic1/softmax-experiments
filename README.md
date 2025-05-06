@@ -17,7 +17,7 @@ It requires 2-3 layers of softmax, each with a re-scaling factor >1, and the inp
 
 Typical run:
 
-![ ](/home/yky/misc-programs/softmax-experiments/softmax-test39.png  "results")
+![ ](softmax-test39.png  "results")
 
 Red = input.  On the right are consecutive applications of softmax.  You can see that the last one achieves a winner-takes-all result.
 

@@ -18,10 +18,13 @@ output2 = sm(zs)
 ys = torch.sub(output2, torch.full((N,), mean))
 zs = torch.mul(ys, torch.full((N,), 10.))
 output3 = sm(zs)
-ys = torch.sub(output3, torch.full((N,), mean))
-zs = torch.mul(ys, torch.full((N,), 10.))
+#ys = torch.sub(output3, torch.full((N,), mean))
+#zs = torch.mul(ys, torch.full((N,), 10.))
+#output4 = sm(zs)
+#print("iterated output =", output4)
+ys = torch.sub(xs, torch.full((N,), mean))
+zs = torch.mul(ys, torch.full((N,), 5000.))
 output4 = sm(zs)
-print("iterated output =", output4)
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -50,6 +53,7 @@ ax3.set_ylim(0, 1.0)
 ax3.set_title("Softmax³")
 
 ax4.bar(range(N), output4)
+ax4.bar(range(N), xs, color="green")
 ax4.set_ylim(0, 1.0)
 ax4.set_title("Softmax⁴")
 
