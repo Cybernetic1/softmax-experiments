@@ -21,6 +21,10 @@ Typical run:
 
 Red = input.  On the right are consecutive applications of softmax.  You can see that the last one achieves a winner-takes-all result.
 
+Another way is to adjust the "temperature" β of softmax, as explained in [Wikipedia](https://en.wikipedia.org/wiki/Softmax_function).  This achieves the same effect of multiple applications in one go:
+
+![ ](softmax-test56.png  "results")
+
 Further questions
 -------------------
 

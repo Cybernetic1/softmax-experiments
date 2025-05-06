@@ -3,6 +3,14 @@ import torch
 import torch.nn as nn
 from torch.distributions import Categorical
 
+β = 5
+def my_softmax(x):
+	maxes = torch.max(x, 0, keepdim=True)[0]
+	x_exp = torch.exp(β * (x - maxes))
+	x_exp_sum = torch.sum(x_exp, 0, keepdim=True)
+	probs = x_exp / x_exp_sum
+	return probs
+
 N = 10						# dimension of logits
 sm = nn.Softmax(dim=0)		# A dimension along which Softmax will be computed (so every slice along dim will sum to 1).
 xs = torch.randn(N)		# Returns random numbers from a normal distribution with mean 0 and variance 1 (also called the standard normal distribution).
@@ -22,9 +30,10 @@ output3 = sm(zs)
 #zs = torch.mul(ys, torch.full((N,), 10.))
 #output4 = sm(zs)
 #print("iterated output =", output4)
-ys = torch.sub(xs, torch.full((N,), mean))
-zs = torch.mul(ys, torch.full((N,), 5000.))
-output4 = sm(zs)
+# ys = torch.sub(xs, torch.full((N,), mean))
+# zs = torch.mul(ys, torch.full((N,), 5000.))
+output4 = my_softmax(xs)
+print("softmax with temperature, output =", output4)
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -52,10 +61,9 @@ ax3.bar(range(N), output3)
 ax3.set_ylim(0, 1.0)
 ax3.set_title("Softmax³")
 
-ax4.bar(range(N), output4)
-ax4.bar(range(N), xs, color="green")
+ax4.bar(range(N), output4, color="green")
 ax4.set_ylim(0, 1.0)
-ax4.set_title("Softmax⁴")
+ax4.set_title("Softmax, β=" + str(β))
 
 num = input("file number =?")
 plt.savefig("softmax-test" + num + ".png")
